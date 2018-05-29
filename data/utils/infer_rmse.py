@@ -2,14 +2,15 @@ import math, os
 
 opts = []
 
-for name in os.listdir("../saves/"):
-  if name[-len("noprobe-inferred.txt"):] == "noprobe-inferred.txt":
+for name in os.listdir():
+  if name[-len("probe_guesses.resorted.pred"):] == "probe_guesses.resorted.pred":
     opts.append(name)
+print(name)
 
 for name in opts:
   count = 0
   score = 0
-  with open("../saves/" + name, "r") as f:
+  with open(name, "r") as f:
     with open("../corpus/probe.data", "r") as fr:
       for p, y in zip(f, fr):
         px = float(p.strip())
@@ -18,7 +19,6 @@ for name in opts:
         score += x * x
         count += 1
   score = math.sqrt(score / count)
-  if score < 0.908:
-    print(name[:-len("-noprobe-inferred.txt")])
-    print(score)
+  print(name[:-len("probe_guesses.resorted.pred")])
+  print(score)
 
