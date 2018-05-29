@@ -19,9 +19,11 @@ for name in opts:
       }
     r = requests.post('http://cs156.caltech.edu/scoreboard', files=files, data=data)
     assert(r.status_code == 200)
-    score = float(r.text.strip().split()[54])
-    print(filename, score)
-    return score
+    try:
+      score = float(r.text.strip().split()[54])
+      print(filename, score)
+    except:
+      print(r.text)
 
   get_score(name)
 
